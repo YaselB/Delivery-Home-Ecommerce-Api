@@ -6,7 +6,7 @@ namespace AlmacenEconomia.Domain.Entity.HomeSale;
 public class HomeSaleEntity : GenericEntity<HomeSaleEntity>
 {
     public double Total {get ; set ;}
-    public ICollection<HomeSaleDetailsEntity>? HomeSaleDetailsEntities {get ; set ;}
+    public List<HomeSaleDetailsEntity> HomeSaleDetailsEntities {get ; set ;} = new List<HomeSaleDetailsEntity>();
     public ProductEnterEntity? ProductEnter {get ; set ;}
     public string ProductEnterId {get ; set ;} = string.Empty;
 
