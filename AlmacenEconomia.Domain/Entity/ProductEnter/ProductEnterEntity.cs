@@ -13,8 +13,9 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
     public double PriceCUP {get ; set ;}
     public double PriceUSD {get ; set ;}
     public string ProductId {get ; set ;} = string.Empty;
+    public double PricePerUnity {get ; set ;}
     public ProductEntity? ProductEntity {get ; set ;}
-    public static ProductEnterEntity Create(string code , double quantity , double priceCup , double priceUsd , string productId)
+    public static ProductEnterEntity Create(string code , double quantity , double priceCup , double priceUsd , string productId , double pricePerUnity)
     {
         var productEnter = new ProductEnterEntity
         {
@@ -22,7 +23,8 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
             Quantity = quantity,
             PriceCUP = priceCup,
             PriceUSD = priceUsd,
-            ProductId = productId
+            ProductId = productId,
+            PricePerUnity = pricePerUnity
         };
         var CreateProductEnterDomainEvent = new CreateProductEnterEntityEvent(productEnter.Id , productEnter.Code);
         productEnter.AddDomainEvent(CreateProductEnterDomainEvent);
@@ -42,10 +44,11 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
         var UpdateQuantityDomainEvent = new UpdateProductEnterQuantityEvent(Id , Quantity);
         AddDomainEvent(UpdateQuantityDomainEvent);
     }
-    public void UpdatePriceCup (double priceCup , double priceUsd)
+    public void UpdatePriceCup (double priceCup , double priceUsd , double pricePerUnity)
     {
         PriceCUP = priceCup;
         PriceUSD = priceUsd;
+        PricePerUnity = pricePerUnity;
         UpdatedAt = DateTime.UtcNow;
         var UpdatePriceCupDomainEvent = new UpdateEnterPriceCupEvent(PriceUSD , PriceCUP);
         AddDomainEvent(UpdatePriceCupDomainEvent);
