@@ -1,5 +1,6 @@
 using AlmacenEconomia.Domain.Entity.ComboDetails;
 using AlmacenEconomia.Domain.Entity.Generic;
+using AlmacenEconomia.Domain.Entity.HomeSaleDetails;
 using AlmacenEconomia.Domain.Entity.OfferDetails;
 using AlmacenEconomia.Domain.Entity.ProductEnter;
 using AlmacenEconomia.Domain.Events.Product.Create;
@@ -20,6 +21,7 @@ public class ProductEntity : GenericEntity<ProductEntity>
     public ICollection<ComboDetailsEntity>? ComboDetailsEntities {get ; set ;}
     public ICollection<OfferDetailsEntity>? OfferDetailsEntities {get ; set ;}
     public ICollection<ProductEnterEntity>? ProductEnterEntities {get ; set ;}
+    public ICollection<HomeSaleDetailsEntity>? HomeSaleDetailsEntities {get ; set ;}
     public static ProductEntity Create(string name , string section , string url , double price , string unity)
     {
         var product = new ProductEntity

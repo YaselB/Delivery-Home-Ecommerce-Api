@@ -3,7 +3,7 @@ using AlmacenEconomia.Domain.Entity.HomeSale;
 using AlmacenEconomia.Domain.Entity.Product;
 
 namespace AlmacenEconomia.Domain.Entity.HomeSaleDetails;
-public class HomeSaleDetails : GenericEntity<HomeSaleDetails>
+public class HomeSaleDetailsEntity : GenericEntity<HomeSaleDetailsEntity>
 {
     public string HomeSaleId {get ; set ;} = string.Empty;
     public HomeSaleEntity? HomeSaleEntity {get ; set ;}

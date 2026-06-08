@@ -3,6 +3,8 @@ using AlmacenEconomia.Domain.Entity.Code;
 using AlmacenEconomia.Domain.Entity.Combo;
 using AlmacenEconomia.Domain.Entity.ComboDetails;
 using AlmacenEconomia.Domain.Entity.Customer;
+using AlmacenEconomia.Domain.Entity.HomeSale;
+using AlmacenEconomia.Domain.Entity.HomeSaleDetails;
 using AlmacenEconomia.Domain.Entity.Offer;
 using AlmacenEconomia.Domain.Entity.OfferDetails;
 using AlmacenEconomia.Domain.Entity.Product;
@@ -30,6 +32,8 @@ public class EconomiaDbContext : DbContext
     public DbSet<OfferEntity> Offers {get ; set ;}
     public DbSet<OfferDetailsEntity> OfferDetails {get ; set ;}
     public DbSet<ProductEnterEntity> ProductEnters {get ; set; }
+    public DbSet<HomeSaleEntity> HomeSales {get ; set ;}
+    public DbSet<HomeSaleDetailsEntity> HomeSaleDetails {get ; set ;}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -46,6 +50,15 @@ public class EconomiaDbContext : DbContext
         modelBuilder.Entity<ProductEnterEntity>(entity =>
         {
            entity.HasOne(p => p.ProductEntity).WithMany(p => p.ProductEnterEntities).HasForeignKey(p => p.ProductId); 
+        });
+        modelBuilder.Entity<HomeSaleDetailsEntity>(entity =>
+        {
+            entity.HasOne(h => h.HomeSaleEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(h => h.HomeSaleId);
+            entity.HasOne(p => p.ProductEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(p => p.ProductId);
+        });
+        modelBuilder.Entity<HomeSaleEntity>(entity =>
+        {
+            entity.HasOne(p => p.ProductEnter).WithMany(h => h.HomeSaleEntities).HasForeignKey(h => h.ProductEnterId);
         });
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
