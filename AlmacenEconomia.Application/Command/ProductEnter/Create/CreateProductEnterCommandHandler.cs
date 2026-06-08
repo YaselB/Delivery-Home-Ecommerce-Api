@@ -35,10 +35,11 @@ public class CreateProductEnterCommandHandler : CreateGenericEntityCommandHandle
             logger.LogWarning("La entrada con codigo: "+request.Code+" esta registrada");
             return Result<Unit>.Failure(new CodeEnterRegisteredError());
         }
+        var TotalPrice = request.Quantity * request.PricePerUnity;
         var newQuantity = product.Quantity + request.Quantity;
-        var priceUsd = Math.Round(request.PriceCup / request.PriceUsd);
+        var priceUsd = Math.Round(TotalPrice / request.PriceUsd ,2);
         product.UpdateQuantity(newQuantity);
-        var newProductEnter = ProductEnterEntity.Create(request.Code ,request.Quantity , request.PriceCup , priceUsd , request.ProductId);
+        var newProductEnter = ProductEnterEntity.Create(request.Code ,request.Quantity , TotalPrice , priceUsd , request.ProductId , request.PricePerUnity);
         await productRepository.UpdateAsync(product, cancellationToken);
         await productEnterRepository.AddAsync(newProductEnter, cancellationToken);
         return Result<Unit>.Success(Unit.Value);
