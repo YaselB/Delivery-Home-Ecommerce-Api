@@ -56,10 +56,6 @@ public class EconomiaDbContext : DbContext
             entity.HasOne(h => h.HomeSaleEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(h => h.HomeSaleId);
             entity.HasOne(p => p.ProductEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(p => p.ProductId);
         });
-        modelBuilder.Entity<HomeSaleEntity>(entity =>
-        {
-            entity.HasOne(p => p.ProductEnter).WithMany(h => h.HomeSaleEntities).HasForeignKey(h => h.ProductEnterId);
-        });
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

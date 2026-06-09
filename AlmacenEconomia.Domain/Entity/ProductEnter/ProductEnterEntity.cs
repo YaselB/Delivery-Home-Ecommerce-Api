@@ -16,7 +16,6 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
     public double PriceUSD {get ; set ;}
     public string ProductId {get ; set ;} = string.Empty;
     public ProductEntity? ProductEntity {get ; set ;}
-    public ICollection<HomeSaleEntity>? HomeSaleEntities {get ; set ;}
     public static ProductEnterEntity Create(string code , double quantity , double priceCup , double priceUsd , string productId)
     {
         var productEnter = new ProductEnterEntity

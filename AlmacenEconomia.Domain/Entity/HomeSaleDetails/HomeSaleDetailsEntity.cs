@@ -10,4 +10,14 @@ public class HomeSaleDetailsEntity : GenericEntity<HomeSaleDetailsEntity>
     public string ProductId {get ; set ;} = string.Empty;
     public ProductEntity ? ProductEntity {get ; set ;}
     public double Quantity {get ; set ;}
+    public static HomeSaleDetailsEntity Create(string homeSaleId , string productId , double quantity)
+    {
+        var entity = new HomeSaleDetailsEntity
+        {
+            HomeSaleId = homeSaleId,
+            ProductId = productId,
+            Quantity = quantity
+        };
+        return entity;
+    }
 }

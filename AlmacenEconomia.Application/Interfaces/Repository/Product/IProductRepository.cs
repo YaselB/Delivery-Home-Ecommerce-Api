@@ -6,4 +6,5 @@ public interface IProductRepository : IGenericRepository<ProductEntity>
 {
     public Task<ProductEntity?> GetByName(string name , CancellationToken cancellationToken);
     public Task<int> ContainsId(List<string> ids , CancellationToken cancellationToken);
+    public Task<List<ProductEntity>> GetByIds(List<string> ids ,CancellationToken cancelllationtoken);
 }

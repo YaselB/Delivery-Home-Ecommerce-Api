@@ -13,6 +13,12 @@ public class HomeSaleRepository : GenericRepository<HomeSaleEntity>, IHomeSaleRe
     {
         context = dbContext;
     }
+
+    public async Task<int> DeleteOldestEntities(DateTime olderTime, CancellationToken cancellationToken)
+    {
+        return await context.HomeSales.Where(p => p.CreatedAt < olderTime).ExecuteDeleteAsync(cancellationToken);
+    }
+
     public override async Task<IReadOnlyList<HomeSaleEntity>> GetAll(CancellationToken cancellationToken = default)
     {
         return await context.HomeSales.Include(h => h.HomeSaleDetailsEntities).ThenInclude(h => h.ProductEntity).ToListAsync();
