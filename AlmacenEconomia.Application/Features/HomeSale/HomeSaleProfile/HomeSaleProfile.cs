@@ -17,6 +17,7 @@ public class HomeSaleProfile : Profile
         .ForMember(dest => dest.ProductId , opt => opt.MapFrom(src => src.ProductId))
         .ForMember(dest => dest.Quantity , opt => opt.MapFrom(src => src.Quantity))
         .ForMember(dest => dest.Unity , opt => opt.MapFrom(src => src.ProductEntity != null ? src.ProductEntity.Unity : string.Empty))
+        .ForMember(dest => dest.Expense , opt => opt.MapFrom(src => src.Expense))
         .ReverseMap();
     }
 }

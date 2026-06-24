@@ -5,4 +5,5 @@ public class HomeSaleDetailsResultDto
     public required double Quantity {get ; set ;}
     public required string Unity {get ; set ;}
     public required string Name {get ; set ;}
+    public required double Expense {get ; set ;}
 }

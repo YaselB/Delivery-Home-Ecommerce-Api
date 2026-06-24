@@ -3,6 +3,7 @@ using System;
 using AlmacenEconomia.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlmacenEconomia.Infrastructure.Migrations
 {
     [DbContext(typeof(EconomiaDbContext))]
-    partial class EconomiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260612195437_CreateHomeSaleEntity")]
+    partial class CreateHomeSaleEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,9 +189,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("Expense")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("HomeSaleId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -327,9 +327,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<double>("Quantity")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("TotalPriceCup")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime>("UpdatedAt")

@@ -36,9 +36,10 @@ public class CreateProductEnterCommandHandler : CreateGenericEntityCommandHandle
             return Result<Unit>.Failure(new CodeEnterRegisteredError());
         }
         var newQuantity = product.Quantity + request.Quantity;
-        var priceUsd = Math.Round(request.PriceCup / request.PriceUsd);
+        var TotalPrice = request.Quantity * request.PriceCup;
+        var priceUsd = Math.Round(TotalPrice / request.PriceUsd , 2);
         product.UpdateQuantity(newQuantity);
-        var newProductEnter = ProductEnterEntity.Create(request.Code ,request.Quantity , request.PriceCup , priceUsd , request.ProductId);
+        var newProductEnter = ProductEnterEntity.Create(request.Code ,request.Quantity , request.PriceCup , priceUsd , request.ProductId ,TotalPrice);
         await productRepository.UpdateAsync(product, cancellationToken);
         await productEnterRepository.AddAsync(newProductEnter, cancellationToken);
         return Result<Unit>.Success(Unit.Value);

@@ -5,4 +5,5 @@ namespace AlmacenEconomia.Application.Interfaces.Repository.HomeSaleRepository;
 public interface IHomeSaleRepository : IGenericRepository<HomeSaleEntity>
 {
     public Task<int> DeleteOldestEntities(DateTime olderTime , CancellationToken cancellationToken);
+    public Task<IReadOnlyList<HomeSaleEntity>> GetByProductId(string id , CancellationToken cancellationToken);
 }

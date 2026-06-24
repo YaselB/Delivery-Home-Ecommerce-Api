@@ -50,6 +50,11 @@ public class WorkerEntity : GenericEntity<WorkerEntity>
             permissions.Add(Permissions.GetOnlyProductEnterPermission);
             permissions.Add(Permissions.GetAllProductEnterPermission);
             permissions.Add(Permissions.GetEnterByProductIdPermission);
+            permissions.Add(Permissions.CreateHomeSalePermission);
+            permissions.Add(Permissions.UpdateHomeSalePermission);
+            permissions.Add(Permissions.GetOnlyHomeSalePermission);
+            permissions.Add(Permissions.GetAllHomeSalePermission);
+            permissions.Add(Permissions.GetHomeSaleByProductId);
         }
         worker.PermissionJson = JsonSerializer.Serialize(permissions);
         var CreateWorkerDomainEvent = new CreateWorkerEntityEvent(worker.Email, worker.Id);

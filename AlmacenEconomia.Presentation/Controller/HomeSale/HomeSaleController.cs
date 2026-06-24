@@ -1,8 +1,11 @@
 using AlmacenEconomia.Application.Command.HomeSale.Create;
 using AlmacenEconomia.Application.Command.HomeSale.UpdateTotal;
+using AlmacenEconomia.Application.Common.Security;
 using AlmacenEconomia.Application.Features.HomeSale.ResultDto;
 using AlmacenEconomia.Application.Query.HomeSale.GetAll;
 using AlmacenEconomia.Application.Query.HomeSale.GetById;
+using AlmacenEconomia.Application.Query.HomeSale.GetProductIdQuery;
+using AlmacenEconomia.Domain.Common.Permission;
 using AlmacenEconomia.Domain.Entity.HomeSale;
 using AlmacenEconomia.Presentation.Controller.Generic;
 using MediatR;
@@ -18,6 +21,7 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
     {
         this.mediator = mediator;
     }
+    [RequiredPermission(Permissions.CreateHomeSalePermission)]
     [HttpPost()]
     public override async Task<IActionResult> Create(CreateHomeSaleCommand command, CancellationToken cancellationToken)
     {
@@ -28,6 +32,7 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
         }
         return Ok(result.Value);
     }
+    [RequiredPermission(Permissions.UpdateHomeSalePermission)]
     [HttpPatch()]
     public override async Task<IActionResult> Update(UpdateTotalCommand command, CancellationToken cancellationToken)
     {
@@ -38,6 +43,7 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
         }
         return Ok(result.Value);
     }
+    [RequiredPermission(Permissions.GetOnlyHomeSalePermission)]
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetById(string id, CancellationToken cancellationToken)
     {
@@ -48,10 +54,11 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
         var result = await mediator.Send(query , cancellationToken);
         if(result.IsFailure && result.error != null)
         {
-            return Ok(result.Value);
+            return StatusCode(result.error.Code , new { error = result.error.Message});
         }
         return Ok(result.Value);
     }
+    [RequiredPermission(Permissions.GetAllHomeSalePermission)]
     [HttpGet()]
     public override async Task<ActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -60,6 +67,21 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
         if(result.IsFailure && result.error != null)
         {
             return StatusCode(result.error.Code , new { error = result.error.Message});
+        }
+        return Ok(result.Value);
+    }
+    [RequiredPermission(Permissions.GetHomeSaleByProductId)]
+    [HttpGet("/{productId}")]
+    public async Task<ActionResult> GetByProductId(string productId , CancellationToken cancellationToken)
+    {
+        var query = new GetByProductIdQuery
+        {
+            ProductId = productId
+        };
+        var result = await mediator.Send(query , cancellationToken);
+        if(result.IsFailure && result.error != null)
+        {
+            return StatusCode(result.error.Code , new {error = result.error.Message});
         }
         return Ok(result.Value);
     }

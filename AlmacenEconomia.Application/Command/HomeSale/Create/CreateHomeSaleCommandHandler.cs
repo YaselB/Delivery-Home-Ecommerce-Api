@@ -1,6 +1,7 @@
 using AlmacenEconomia.Application.Command.Generic.Create;
 using AlmacenEconomia.Application.Common.Error;
 using AlmacenEconomia.Application.Common.Result_Value;
+using AlmacenEconomia.Application.Features.HomeSale.DetailsDto;
 using AlmacenEconomia.Application.Interfaces.Repository.HomeSaleRepository;
 using AlmacenEconomia.Application.Interfaces.Repository.Product;
 using AlmacenEconomia.Application.Interfaces.Repository.ProductEnter;
@@ -46,37 +47,48 @@ public class CreateHomeSaleCommandHandler : CreateGenericEntityCommandHandler<Ho
             }
         }
         double total = 0;
+        var list = new List<DetailsDto>();
         foreach (var i in groupEnter)
         {
-            var orderByCreatedAt = i.OrderBy(p => p.CreatedAt);
+            var orderByCreatedAt = i.OrderBy(p => p.CreatedAt).Where(p => p.Quantity > 0);
             var quantity = request.HomeSaleDtos.Where(p => p.ProductId == orderByCreatedAt.First().ProductId).Select(p => p.Quantity).FirstOrDefault();
             var product = orderByCreatedAt.First().ProductEntity;
             if (product != null)
             {
+                var detail = new DetailsDto
+                {
+                    Expense = 0,
+                    ProductId = product.Id,
+                    Quantity = quantity
+                };
+                double expense = 0;
                 foreach (var j in orderByCreatedAt)
                 {
                     if (quantity <= j.Quantity)
                     {
                         j.Quantity -= quantity;
-                        product.UpdateQuantity(product.Quantity-= quantity);
-                        break;
+                        product.UpdateQuantity(product.Quantity -= quantity);
+                        expense += Math.Round(j.PriceCUP * quantity, 2);
+                        total += expense;
                     }
                     if (quantity > j.Quantity)
                     {
                         quantity -= j.Quantity;
                         product.UpdateQuantity(product.Quantity -= j.Quantity);
+                        expense += Math.Round(j.PriceCUP * j.Quantity, 2);
                         j.UpdateQuantity(0);
                     }
-                    await productEnterRepository.UpdateAsync(j , cancellationToken);
+                    await productEnterRepository.UpdateAsync(j, cancellationToken);
                 }
-                total = Math.Round(total + (product.Price * quantity));
+                detail.Expense = expense;
+                list.Add(detail);
                 await productRepository.UpdateAsync(product);
             }
         }
         var newHomeSale = HomeSaleEntity.Create(total);
-        var details = request.HomeSaleDtos.Select(h => HomeSaleDetailsEntity.Create(newHomeSale.Id ,h.ProductId , h.Quantity));
+        var details = list.Select(p => HomeSaleDetailsEntity.Create(newHomeSale.Id ,p.ProductId , p.Quantity , p.Expense)).ToList();
         newHomeSale.HomeSaleDetailsEntities.AddRange(details);
-        await homeSaleRepository.AddAsync(newHomeSale , cancellationToken);
+        await homeSaleRepository.AddAsync(newHomeSale, cancellationToken);
         return Result<Unit>.Success(Unit.Value);
     }
 }

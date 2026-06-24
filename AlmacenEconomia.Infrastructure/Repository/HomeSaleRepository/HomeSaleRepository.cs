@@ -27,4 +27,9 @@ public class HomeSaleRepository : GenericRepository<HomeSaleEntity>, IHomeSaleRe
     {
         return await context.HomeSales.Include(h => h.HomeSaleDetailsEntities).ThenInclude(h => h.ProductEntity).FirstOrDefaultAsync(h => h.Id == id);
     }
+
+    public async Task<IReadOnlyList<HomeSaleEntity>> GetByProductId(string id, CancellationToken cancellationToken)
+    {
+        return await context.HomeSales.Include(h => h.HomeSaleDetailsEntities).ThenInclude(h => h.ProductEntity).Where(h => h.HomeSaleDetailsEntities.Any(p => p.ProductId == id)).ToListAsync();
+    }
 }

@@ -27,7 +27,8 @@ public class UpdatePriceCommandHandler : UpdateGenericEntityCommandHandler<Produ
             return Result<Unit>.Failure(new ProductEnterNotFoundError());
         }
         var newPriceUsd = Math.Round(request.PriceCup / request.PriceUsd , 2);
-        enter.UpdatePriceCup(request.PriceCup , newPriceUsd);
+        var totalPrice = Math.Round(request.PriceCup * enter.Quantity , 2);
+        enter.UpdatePriceCup(request.PriceCup , newPriceUsd , totalPrice);
         await productEnterRepository.UpdateAsync(enter , cancellationToken);
         return Result<Unit>.Success(Unit.Value);
     }
