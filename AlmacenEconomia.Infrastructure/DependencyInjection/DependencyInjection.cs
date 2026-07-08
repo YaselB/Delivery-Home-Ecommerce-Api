@@ -3,6 +3,7 @@ using AlmacenEconomia.Application.Interfaces.Email;
 using AlmacenEconomia.Application.Interfaces.Jwt;
 using AlmacenEconomia.Application.Interfaces.Password;
 using AlmacenEconomia.Application.Interfaces.Repository.Admin;
+using AlmacenEconomia.Application.Interfaces.Repository.AdminSale;
 using AlmacenEconomia.Application.Interfaces.Repository.Code;
 using AlmacenEconomia.Application.Interfaces.Repository.Combo;
 using AlmacenEconomia.Application.Interfaces.Repository.Customer;
@@ -15,6 +16,7 @@ using AlmacenEconomia.Application.Interfaces.Services.CountryValidator;
 using AlmacenEconomia.Application.Repository.Generic;
 using AlmacenEconomia.Infrastructure.Db;
 using AlmacenEconomia.Infrastructure.Repository.Admin;
+using AlmacenEconomia.Infrastructure.Repository.AdminSale;
 using AlmacenEconomia.Infrastructure.Repository.Code;
 using AlmacenEconomia.Infrastructure.Repository.Combo;
 using AlmacenEconomia.Infrastructure.Repository.Generic;
@@ -59,6 +61,7 @@ public static class DependencyInjection
         services.AddScoped<IOfferRepository , OfferRepository>();
         services.AddScoped<IProductEnterRepository , ProductEnterRepository>();
         services.AddScoped<IHomeSaleRepository ,HomeSaleRepository>();
+        services.AddScoped<IAdminSaleRepository , AdminSaleRepository>();
         return services;
     }
 }

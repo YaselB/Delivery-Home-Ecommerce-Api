@@ -1,4 +1,6 @@
 using AlmacenEconomia.Domain.Entity.Admin;
+using AlmacenEconomia.Domain.Entity.AdminSale;
+using AlmacenEconomia.Domain.Entity.AdminSaleDetails;
 using AlmacenEconomia.Domain.Entity.Code;
 using AlmacenEconomia.Domain.Entity.Combo;
 using AlmacenEconomia.Domain.Entity.ComboDetails;
@@ -34,6 +36,8 @@ public class EconomiaDbContext : DbContext
     public DbSet<ProductEnterEntity> ProductEnters {get ; set; }
     public DbSet<HomeSaleEntity> HomeSales {get ; set ;}
     public DbSet<HomeSaleDetailsEntity> HomeSaleDetails {get ; set ;}
+    public DbSet<AdminSaleEntity> AdminSales {get ; set ;}
+    public DbSet<AdminSaleDetailsEntity> AdminSaleDetails {get ; set ;}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -55,6 +59,15 @@ public class EconomiaDbContext : DbContext
         {
             entity.HasOne(h => h.HomeSaleEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(h => h.HomeSaleId);
             entity.HasOne(p => p.ProductEntity).WithMany(h => h.HomeSaleDetailsEntities).HasForeignKey(p => p.ProductId);
+        });
+        modelBuilder.Entity<AdminSaleEntity>(option =>
+        {
+            option.HasOne(a => a.AdminEntity).WithMany(a => a.AdminSaleEntity).HasForeignKey(a => a.AdminId);
+        });
+        modelBuilder.Entity<AdminSaleDetailsEntity>(option =>
+        {
+            option.HasOne(a => a.AdminSaleEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.AdminSaleId);
+            option.HasOne(a => a.ProductEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.AdminSaleId);
         });
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

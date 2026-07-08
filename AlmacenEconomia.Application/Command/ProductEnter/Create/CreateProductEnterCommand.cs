@@ -9,4 +9,6 @@ public class CreateProductEnterCommand : CreateGenericEntityCommand<ProductEnter
     public double PriceCup {get ; set ;}
     public double PriceUsd {get ; set ;}
     public string ProductId {get ; set ;} = string.Empty;
+    public DateTime EnterDate {get ; set ;}
+    public DateTime ? EndDate {get ; set ;}
 }

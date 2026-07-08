@@ -1,9 +1,9 @@
 using AlmacenEconomia.Domain.Entity.Generic;
-using AlmacenEconomia.Domain.Entity.HomeSale;
-using AlmacenEconomia.Domain.Entity.HomeSaleDetails;
 using AlmacenEconomia.Domain.Entity.Product;
 using AlmacenEconomia.Domain.Events.ProductEnter.Create;
 using AlmacenEconomia.Domain.Events.ProductEnter.UpdateCode;
+using AlmacenEconomia.Domain.Events.ProductEnter.UpdateEndDate;
+using AlmacenEconomia.Domain.Events.ProductEnter.UpdateEnterDate;
 using AlmacenEconomia.Domain.Events.ProductEnter.UpdatePriceCup;
 using AlmacenEconomia.Domain.Events.ProductEnter.UpdateQuantity;
 
@@ -16,8 +16,10 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
     public double PriceUSD {get ; set ;}
     public double TotalPriceCup {get ; set ;}
     public string ProductId {get ; set ;} = string.Empty;
+    public DateTime? EndDate {get ; set ;}
+    public DateTime EnterDate {get ; set; }
     public ProductEntity? ProductEntity {get ; set ;}
-    public static ProductEnterEntity Create(string code , double quantity , double priceCup , double priceUsd , string productId , double totalPriceCup)
+    public static ProductEnterEntity Create(string code , double quantity , double priceCup , double priceUsd , string productId , double totalPriceCup , DateTime enterDate , DateTime? endDate)
     {
         var productEnter = new ProductEnterEntity
         {
@@ -26,7 +28,9 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
             PriceCUP = priceCup,
             PriceUSD = priceUsd,
             ProductId = productId,
-            TotalPriceCup = totalPriceCup
+            TotalPriceCup = totalPriceCup,
+            EnterDate = enterDate,
+            EndDate = endDate
         };
         var CreateProductEnterDomainEvent = new CreateProductEnterEntityEvent(productEnter.Id , productEnter.Code);
         productEnter.AddDomainEvent(CreateProductEnterDomainEvent);
@@ -54,5 +58,19 @@ public class ProductEnterEntity : GenericEntity<ProductEnterEntity>
         UpdatedAt = DateTime.UtcNow;
         var UpdatePriceCupDomainEvent = new UpdateEnterPriceCupEvent(PriceUSD , PriceCUP);
         AddDomainEvent(UpdatePriceCupDomainEvent);
+    }
+    public void UpdateEndDate(DateTime? endDate)
+    {
+        EndDate = endDate;
+        UpdatedAt = DateTime.UtcNow;
+        var updateEndDateDomainEvent = new UpdateEndDateEvent(Id ,EndDate);
+        AddDomainEvent(updateEndDateDomainEvent);
+    }
+    public void UpdateEnterDate(DateTime enterDate)
+    {
+        EnterDate = enterDate;
+        UpdatedAt = DateTime.UtcNow;
+        var updateEnterDateDomainEvent = new UpdateEnterDateEvent(Id , EnterDate);
+        AddDomainEvent(updateEnterDateDomainEvent);
     }
 }

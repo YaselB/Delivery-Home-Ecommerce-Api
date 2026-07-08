@@ -1,3 +1,4 @@
+using AlmacenEconomia.Domain.Entity.AdminSaleDetails;
 using AlmacenEconomia.Domain.Entity.ComboDetails;
 using AlmacenEconomia.Domain.Entity.Generic;
 using AlmacenEconomia.Domain.Entity.HomeSaleDetails;
@@ -22,6 +23,7 @@ public class ProductEntity : GenericEntity<ProductEntity>
     public ICollection<OfferDetailsEntity>? OfferDetailsEntities {get ; set ;}
     public ICollection<ProductEnterEntity>? ProductEnterEntities {get ; set ;}
     public ICollection<HomeSaleDetailsEntity>? HomeSaleDetailsEntities {get ; set ;}
+    public ICollection<AdminSaleDetailsEntity>? AdminSaleDetailsEntities {get ; set ;}
     public static ProductEntity Create(string name , string section , string url , double price , string unity)
     {
         var product = new ProductEntity
