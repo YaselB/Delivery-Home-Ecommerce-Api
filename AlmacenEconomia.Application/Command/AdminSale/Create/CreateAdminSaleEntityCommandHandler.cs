@@ -77,6 +77,7 @@ public class CreateAdminSaleEntityCommandHandler : CreateGenericEntityCommandHan
                         j.UpdateQuantity(Math.Round(j.Quantity - quantity, 2));
                         product.UpdateQuantity(Math.Round(product.Quantity - quantity));
                         detail.Expense += Math.Round(quantity * j.PriceCUP, 2);
+                        break;
                     }
                     if (quantity > j.Quantity)
                     {

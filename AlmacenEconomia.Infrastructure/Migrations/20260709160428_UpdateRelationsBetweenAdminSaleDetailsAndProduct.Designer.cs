@@ -3,6 +3,7 @@ using System;
 using AlmacenEconomia.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlmacenEconomia.Infrastructure.Migrations
 {
     [DbContext(typeof(EconomiaDbContext))]
-    partial class EconomiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260709160428_UpdateRelationsBetweenAdminSaleDetailsAndProduct")]
+    partial class UpdateRelationsBetweenAdminSaleDetailsAndProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

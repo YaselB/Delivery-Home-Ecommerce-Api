@@ -16,6 +16,7 @@ public class AdminSaleProfileDto : Profile
         CreateMap<AdminSaleDetailsEntity , AdminSaleDetailsResultDto>()
         .ForMember(dest => dest.Name , opt => opt.MapFrom(src => src.ProductEntity != null ? src.ProductEntity.Name : string.Empty))
         .ForMember(dest => dest.Unity , opt => opt.MapFrom(src => src.ProductEntity != null ? src.ProductEntity.Unity : string.Empty))
+        .ForMember(dest => dest.Expense , opt => opt.MapFrom(src => src.Expensive))
         .ReverseMap();
     }
 }

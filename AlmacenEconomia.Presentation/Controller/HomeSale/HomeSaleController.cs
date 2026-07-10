@@ -71,7 +71,7 @@ public class HomeSaleController : GenericController<HomeSaleEntity, CreateHomeSa
         return Ok(result.Value);
     }
     [RequiredPermission(Permissions.GetHomeSaleByProductId)]
-    [HttpGet("/{productId}")]
+    [HttpGet("product/{productId}")]
     public async Task<ActionResult> GetByProductId(string productId , CancellationToken cancellationToken)
     {
         var query = new GetByProductIdQuery

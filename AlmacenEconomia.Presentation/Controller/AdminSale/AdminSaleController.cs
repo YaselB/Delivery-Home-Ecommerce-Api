@@ -77,7 +77,7 @@ public class AdminSaleController : GenericController<AdminSaleEntity, CreateAdmi
         }
         return Ok(result.Value);
     }
-    [HttpGet("/{productId}")]
+    [HttpGet("product/{productId}")]
     public async Task<ActionResult> GetByProductId(string productId , CancellationToken cancellationToken)
     {
         var query = new GetAdminSaleByProductIdQuery

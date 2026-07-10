@@ -67,7 +67,7 @@ public class EconomiaDbContext : DbContext
         modelBuilder.Entity<AdminSaleDetailsEntity>(option =>
         {
             option.HasOne(a => a.AdminSaleEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.AdminSaleId);
-            option.HasOne(a => a.ProductEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.AdminSaleId);
+            option.HasOne(a => a.ProductEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.ProductId);
         });
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
