@@ -108,11 +108,12 @@ public class UpdateAdminSaleTotalCommandHandler : UpdateGenericEntityCommandHand
                     if(enter != null)
                     {
                         enter.UpdateQuantity(Math.Round(enter.Quantity + diference , 2)); 
-                        expence += Math.Round(diference * enter.PriceCUP);
+                        expence -= Math.Round(diference * enter.PriceCUP);
                         await productEnterRepository.UpdateAsync(enter , cancellationToken);
                     }
                 }
                 i.UpdateQuantity(updateProduct.Quantity);
+                i.UpdateExpensive(expence);
                 await productRepository.UpdateAsync(product , cancellationToken);
             }
             if(product != null && updateProduct == null && enters != null)
