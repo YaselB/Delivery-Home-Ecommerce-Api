@@ -35,6 +35,7 @@ public class CreateProductEnterCommandHandler : CreateGenericEntityCommandHandle
             logger.LogWarning("La entrada con codigo: "+request.Code+" esta registrada");
             return Result<Unit>.Failure(new CodeEnterRegisteredError());
         }
+        var TotalPrice = request.Quantity * request.PricePerUnity;
         var newQuantity = product.Quantity + request.Quantity;
         var TotalPrice = request.Quantity * request.PriceCup;
         var priceUsd = Math.Round(TotalPrice / request.PriceUsd , 2);

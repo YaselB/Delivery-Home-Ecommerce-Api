@@ -6,7 +6,7 @@ public class CreateProductEnterCommand : CreateGenericEntityCommand<ProductEnter
 {
     public string Code {get ; set ;} = string.Empty;
     public double Quantity {get ; set ;}
-    public double PriceCup {get ; set ;}
+    public double PricePerUnity {get ; set ;}
     public double PriceUsd {get ; set ;}
     public string ProductId {get ; set ;} = string.Empty;
     public DateTime EnterDate {get ; set ;}

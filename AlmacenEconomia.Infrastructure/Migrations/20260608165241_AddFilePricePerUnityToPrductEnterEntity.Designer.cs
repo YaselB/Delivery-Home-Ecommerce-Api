@@ -3,6 +3,7 @@ using System;
 using AlmacenEconomia.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AlmacenEconomia.Infrastructure.Migrations
 {
     [DbContext(typeof(EconomiaDbContext))]
-    partial class EconomiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260608165241_AddFilePricePerUnityToPrductEnterEntity")]
+    partial class AddFilePricePerUnityToPrductEnterEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,65 +51,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admins");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.AdminSale.AdminSaleEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AdminId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
-
-                    b.ToTable("AdminSales");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.AdminSaleDetails.AdminSaleDetailsEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AdminSaleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Expensive")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdminSaleId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("AdminSaleDetails");
                 });
 
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Code.CodeEntity", b =>
@@ -218,59 +162,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.HomeSale.HomeSaleEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HomeSales");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.HomeSaleDetails.HomeSaleDetailsEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("Expense")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("HomeSaleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeSaleId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("HomeSaleDetails");
-                });
-
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Offer.OfferEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -375,12 +266,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("EnterDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<double>("PriceCUP")
                         .HasColumnType("double precision");
 
@@ -395,9 +280,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<double>("Quantity")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("TotalPriceCup")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -442,36 +324,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.ToTable("Workers");
                 });
 
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.AdminSale.AdminSaleEntity", b =>
-                {
-                    b.HasOne("AlmacenEconomia.Domain.Entity.Admin.AdminEntity", "AdminEntity")
-                        .WithMany("AdminSaleEntity")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AdminEntity");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.AdminSaleDetails.AdminSaleDetailsEntity", b =>
-                {
-                    b.HasOne("AlmacenEconomia.Domain.Entity.AdminSale.AdminSaleEntity", "AdminSaleEntity")
-                        .WithMany("AdminSaleDetailsEntities")
-                        .HasForeignKey("AdminSaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AlmacenEconomia.Domain.Entity.Product.ProductEntity", "ProductEntity")
-                        .WithMany("AdminSaleDetailsEntities")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AdminSaleEntity");
-
-                    b.Navigation("ProductEntity");
-                });
-
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.ComboDetails.ComboDetailsEntity", b =>
                 {
                     b.HasOne("AlmacenEconomia.Domain.Entity.Combo.ComboEntity", "Combo")
@@ -489,25 +341,6 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.Navigation("Combo");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.HomeSaleDetails.HomeSaleDetailsEntity", b =>
-                {
-                    b.HasOne("AlmacenEconomia.Domain.Entity.HomeSale.HomeSaleEntity", "HomeSaleEntity")
-                        .WithMany("HomeSaleDetailsEntities")
-                        .HasForeignKey("HomeSaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AlmacenEconomia.Domain.Entity.Product.ProductEntity", "ProductEntity")
-                        .WithMany("HomeSaleDetailsEntities")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HomeSaleEntity");
-
-                    b.Navigation("ProductEntity");
                 });
 
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.OfferDetails.OfferDetailsEntity", b =>
@@ -540,24 +373,9 @@ namespace AlmacenEconomia.Infrastructure.Migrations
                     b.Navigation("ProductEntity");
                 });
 
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Admin.AdminEntity", b =>
-                {
-                    b.Navigation("AdminSaleEntity");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.AdminSale.AdminSaleEntity", b =>
-                {
-                    b.Navigation("AdminSaleDetailsEntities");
-                });
-
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Combo.ComboEntity", b =>
                 {
                     b.Navigation("ComboDetails");
-                });
-
-            modelBuilder.Entity("AlmacenEconomia.Domain.Entity.HomeSale.HomeSaleEntity", b =>
-                {
-                    b.Navigation("HomeSaleDetailsEntities");
                 });
 
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Offer.OfferEntity", b =>
@@ -567,11 +385,7 @@ namespace AlmacenEconomia.Infrastructure.Migrations
 
             modelBuilder.Entity("AlmacenEconomia.Domain.Entity.Product.ProductEntity", b =>
                 {
-                    b.Navigation("AdminSaleDetailsEntities");
-
                     b.Navigation("ComboDetailsEntities");
-
-                    b.Navigation("HomeSaleDetailsEntities");
 
                     b.Navigation("OfferDetailsEntities");
 
