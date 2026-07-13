@@ -43,6 +43,11 @@ public static class Permissions
     public const string GetOnlyProductEnterPermission = "GetOnlyProductEnterPermission";
     public const string GetAllProductEnterPermission = "GetAllProductEnterPermission";
     public const string GetEnterByProductIdPermission = "GetEnterByIdProductIdPermission";
+    public const string CreateHomeSalePermission = "CreateHomeSalePermission";
+    public const string UpdateHomeSalePermission = "UpdateHomeSalePermission";
+    public const string GetOnlyHomeSalePermission = "GetOnlyHomeSalePermission";
+    public const string GetAllHomeSalePermission = "GetAllHomeSalePermission";
+    public const string GetHomeSaleByProductId = "GetHomeSaleByProductId";
     public static IReadOnlySet<string> AllAdminPermissions => new HashSet<string>
     {
         CreateAdminPermission,
@@ -86,6 +91,11 @@ public static class Permissions
         GetOnlyProductEnterPermission,
         GetAllProductEnterPermission,
         GetEnterByProductIdPermission,
+        CreateHomeSalePermission,
+        UpdateHomeSalePermission,
+        GetOnlyHomeSalePermission,
+        GetAllHomeSalePermission,
+        GetHomeSaleByProductId
     };
     public static IReadOnlySet<string> AllCustomerPermissions => new HashSet<string>
     {
@@ -115,6 +125,11 @@ public static class Permissions
         UpdateProductEnterPermission,
         GetOnlyProductEnterPermission,
         GetAllProductEnterPermission,
-        GetEnterByProductIdPermission
+        GetEnterByProductIdPermission,
+        CreateHomeSalePermission,
+        UpdateHomeSalePermission,
+        GetOnlyHomeSalePermission,
+        GetAllHomeSalePermission,
+        GetHomeSaleByProductId
     };
 }

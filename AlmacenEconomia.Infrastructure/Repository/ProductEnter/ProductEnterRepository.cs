@@ -36,4 +36,9 @@ public class ProductEnterRepository : GenericRepository<ProductEnterEntity>, IPr
     {
         return await context.ProductEnters.FirstOrDefaultAsync(p => p.Code == code && p.ProductId == productId);
     }
+
+    public async Task<List<ProductEnterEntity>> GetByIdsProducts(List<string> productsId, CancellationToken cancellationToken)
+    {
+        return await context.ProductEnters.Where(p => productsId.Contains(p.ProductId)).Include(p => p.ProductEntity).ToListAsync();
+    }
 }

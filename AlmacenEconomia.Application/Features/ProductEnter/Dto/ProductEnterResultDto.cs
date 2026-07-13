@@ -10,5 +10,7 @@ public class ProductEnterResultDto
     public required double PriceCup {get ; set ;}
     public required double StockQuantity {get ; set ;}
     public required double Quantity {get ; set ;}
+    public required DateTime? EndDate {get ; set ;}
+    public required DateTime EnterDate {get ; set ;}
     
 }

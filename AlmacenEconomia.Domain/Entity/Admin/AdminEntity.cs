@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using AlmacenEconomia.Domain.Common.Permission;
+using AlmacenEconomia.Domain.Entity.AdminSale;
 using AlmacenEconomia.Domain.Entity.Generic;
 using AlmacenEconomia.Domain.Events.Admin.AddPermissions;
 using AlmacenEconomia.Domain.Events.Admin.Create;
@@ -11,6 +12,7 @@ public class AdminEntity : GenericEntity<AdminEntity>
 {
     public string Email {get ; set ;} = string.Empty;
     public string Password {get ; set ;} = string.Empty;
+    public ICollection<AdminSaleEntity>? AdminSaleEntity{get ; set ;}
     public string PermissionJson {get ; set ;} = "[]";
     [NotMapped]
     public IReadOnlyList<string> Permission => JsonSerializer.Deserialize<List<string>>(PermissionJson) ?? new List<string>();

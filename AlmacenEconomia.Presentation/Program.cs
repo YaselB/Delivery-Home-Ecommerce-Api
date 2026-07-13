@@ -77,6 +77,7 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddHostedService<ProductEnterCleanupService>();
+builder.Services.AddHostedService<HomeSaleCleanUpService>();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 

@@ -1,5 +1,7 @@
 using AlmacenEconomia.Application.Command.ProductEnter.Create;
 using AlmacenEconomia.Application.Command.ProductEnter.UpdateCode;
+using AlmacenEconomia.Application.Command.ProductEnter.UpdateEndDate;
+using AlmacenEconomia.Application.Command.ProductEnter.UpdateEnterDate;
 using AlmacenEconomia.Application.Command.ProductEnter.UpdatePriceCup;
 using AlmacenEconomia.Application.Command.ProductEnter.UpdateQuantity;
 using AlmacenEconomia.Application.Common.Security;
@@ -61,6 +63,28 @@ public class ProductEnterController : GenericController<ProductEnterEntity, Crea
     public async Task<IActionResult> UpdatePrice(UpdatePriceCommand command , CancellationToken cancellationToken)
     {
         var result = await mediator.Send( command , cancellationToken);
+        if(result.IsFailure && result.error != null)
+        {
+            return StatusCode(result.error.Code , new { error = result.error.Message});
+        }
+        return Ok(result.Value);
+    }
+    [RequiredPermission(Permissions.UpdateProductEnterPermission)]
+    [HttpPatch("updateEnterDate")]
+    public async Task<IActionResult> UpdateEnterDate(UpdateEnterDateCommand command , CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(command , cancellationToken);
+        if(result.IsFailure && result.error != null)
+        {
+            return StatusCode(result.error.Code , new { error = result.error.Message});
+        }
+        return Ok(result.Value);
+    }
+    [RequiredPermission(Permissions.UpdateProductEnterPermission)]
+    [HttpPatch("updateEndDate")]
+    public async Task<IActionResult> UpdateEndDate(UpdateEndDateCommand command , CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(command , cancellationToken);
         if(result.IsFailure && result.error != null)
         {
             return StatusCode(result.error.Code , new { error = result.error.Message});

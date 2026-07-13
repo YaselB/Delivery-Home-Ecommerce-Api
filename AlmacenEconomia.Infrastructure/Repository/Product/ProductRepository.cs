@@ -19,6 +19,11 @@ public class ProductRepository : GenericRepository<ProductEntity>, IProductRepos
         return await context.Products.Where(p => ids.Contains(p.Id)).CountAsync();
     }
 
+    public async Task<List<ProductEntity>> GetByIds(List<string> ids, CancellationToken cancelllationtoken)
+    {
+        return await context.Products.Where(p => ids.Contains(p.Id)).ToListAsync();
+    }
+
     public async Task<ProductEntity?> GetByName(string name, CancellationToken cancellationToken)
     {
         return await context.Products.FirstOrDefaultAsync(p => p.Name == name);
