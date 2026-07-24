@@ -33,6 +33,16 @@ public class AdminSaleRepository : GenericRepository<AdminSaleEntity>, IAdminSal
         return await context.AdminSales.Include(a => a.AdminEntity).Include(a => a.AdminSaleDetailsEntities).ThenInclude(a => a.ProductEntity).ToListAsync();
     }
 
+    public async Task<double> GetDebt(CancellationToken cancellationToken)
+    {
+        return await context.AdminSales.Where(a => a.Paid == false).SumAsync(a => a.Total);
+    }
+
+    public async Task<List<AdminSaleEntity>> GetListEntities(List<string> ids, CancellationToken cancellationToken)
+    {
+        return await context.AdminSales.Where(a => ids.Contains(a.Id)).ToListAsync();
+    }
+
     public async Task RemoveRange(List<AdminSaleEntity> list, CancellationToken cancellationToken)
     {
         context.AdminSales.RemoveRange(list);

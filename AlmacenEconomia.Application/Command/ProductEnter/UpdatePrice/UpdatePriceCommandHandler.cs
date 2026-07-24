@@ -26,9 +26,9 @@ public class UpdatePriceCommandHandler : UpdateGenericEntityCommandHandler<Produ
             logger.LogWarning("La entrada con id: "+request.Id+" no esta registrada");
             return Result<Unit>.Failure(new ProductEnterNotFoundError());
         }
-        var newPriceUsd = Math.Round(request.PriceCup / request.PriceUsd , 2);
-        var totalPrice = Math.Round(request.PriceCup * enter.Quantity , 2);
-        enter.UpdatePriceCup(request.PriceCup , newPriceUsd , totalPrice);
+        var totalPrice = Math.Round(request.PricePerUnity * enter.Quantity , 2);
+        var newPriceUsd = Math.Round(totalPrice / request.PriceUsd , 2);
+        enter.UpdatePriceCup(request.PricePerUnity , newPriceUsd , totalPrice);
         await productEnterRepository.UpdateAsync(enter , cancellationToken);
         return Result<Unit>.Success(Unit.Value);
     }

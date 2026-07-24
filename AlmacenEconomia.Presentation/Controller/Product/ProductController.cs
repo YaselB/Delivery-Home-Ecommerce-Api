@@ -1,6 +1,7 @@
 using AlmacenEconomia.Application.Command.Product.Create;
 using AlmacenEconomia.Application.Command.Product.Delete;
 using AlmacenEconomia.Application.Command.Product.UpdatePrice;
+using AlmacenEconomia.Application.Command.Product.UpdateSection;
 using AlmacenEconomia.Application.Command.Product.UpdateUnity;
 using AlmacenEconomia.Application.Command.Product.UpdateUrl;
 using AlmacenEconomia.Application.Common.Security;
@@ -66,6 +67,17 @@ public class ProductController : GenericController<ProductEntity, CreateProductE
         if(result.IsFailure && result.error != null)
         {
             return StatusCode(result.error.Code , new { error = result.error.Message});
+        }
+        return Ok(result.Value);
+    }
+    [RequiredPermission(Permissions.UpdateProductPermission)]
+    [HttpPatch("updateSection")]
+    public async Task<IActionResult> UpdateSection(UpdateSectionCommand command , CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(command , cancellationToken);
+        if(result.IsFailure && result.error != null)
+        {
+            return StatusCode(result.error.Code , new { error = result.error.Message });
         }
         return Ok(result.Value);
     }

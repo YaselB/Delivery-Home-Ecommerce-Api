@@ -68,4 +68,10 @@ public class ProductEntity : GenericEntity<ProductEntity>
         var productUnityDomainEvent = new UpdateProductUnityEvent(Name , unity);
         AddDomainEvent(productUnityDomainEvent);
     }
+    public void UpdateSection(string section)
+    {
+        Section = section;
+        UpdatedAt = DateTime.UtcNow;
+        
+    }
 }

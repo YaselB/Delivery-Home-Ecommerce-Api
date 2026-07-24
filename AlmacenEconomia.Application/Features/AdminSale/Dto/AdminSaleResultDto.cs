@@ -6,5 +6,6 @@ public class AdminSaleResultDto
     public required string Id {get ; set ;}
     public required string Name {get ; set ;}
     public required double Total {get ; set ;}
+    public required bool Paid {get ; set ;}
     public required List<AdminSaleDetailsResultDto> adminSaleDetailsResultDtos {get ; set ;}
 }
