@@ -13,7 +13,7 @@ public class GetDebtQueryHandler : IRequestHandler<GetDebtQuery, Result<double>>
     }
     public async Task<Result<double>> Handle(GetDebtQuery request, CancellationToken cancellationToken)
     {
-        var debt = await adminSaleRepository.GetDebt(cancellationToken);
+        var debt = await adminSaleRepository.GetDebt(request.AdminId , cancellationToken);
         return Result<double>.Success(debt);
     }
 }

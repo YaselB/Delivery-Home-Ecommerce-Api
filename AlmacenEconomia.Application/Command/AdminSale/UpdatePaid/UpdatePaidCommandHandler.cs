@@ -24,6 +24,11 @@ public class UpdatePaidCommandHandler : IRequestHandler<UpdatePaidCommand, Resul
             logger.LogWarning("Algunas salidas no han sido encontradas");
             return Result<Unit>.Failure(new AdmisSalesNotFoundError());
         }
+        if(sales.Any(a => a.AdminId != request.AdminId))
+        {
+            logger.LogWarning("Algunas salidas no pertenecen al administrador asignado");
+            return Result<Unit>.Failure(new AdminSaleNotMatchWithAdminIDError());
+        }
         foreach(var sale in sales)
         {
             sale.UpdatePaid();

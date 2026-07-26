@@ -4,5 +4,5 @@ using MediatR;
 namespace AlmacenEconomia.Application.Query.AdminSale.GetDebt;
 public class GetDebtQuery : IRequest<Result<double>>
 {
-    
+    public required string AdminId { get ; set ;}
 }
