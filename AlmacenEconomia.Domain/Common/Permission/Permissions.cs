@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+
 namespace AlmacenEconomia.Domain.Common.Permission;
 public static class Permissions
 {
@@ -48,6 +50,19 @@ public static class Permissions
     public const string GetOnlyHomeSalePermission = "GetOnlyHomeSalePermission";
     public const string GetAllHomeSalePermission = "GetAllHomeSalePermission";
     public const string GetHomeSaleByProductId = "GetHomeSaleByProductId";
+    public const string CreateAdminSalePermission = "CreateAdminSalePermission";
+    public const string UpdateAdminSalePermission = "UpdateAdminSalePermission";
+    public const string DeleteAdminSalePermission = "DeleteAdminSalePermission";
+    public const string GetOnlyAdminSalePermission = "GetOnlyAdminSalePermission";
+    public const string GetAllAdminSalePermission = "GetAllAdminSalePermission";
+    public const string GetAdminSaleByProductIdPermission = "GetAdminSaleByProductIdPermission";
+    public const string CreateAdminDebtPermission = "CreateAdminDebtPermission";
+    public const string UpdateAdminDebtPermission = "UpdateAdminDebtPermission";
+    public const string DeleteAdminDebtPermission = "DeleteAdminSalePermission";
+    public const string GetOnlyAdminDebtPermission = "GetonlyAdminDebtPermission";
+    public const string GetAllAdminDebtPermission = "GetAllAdminDebtPermission";
+    public const string GetAdminDebtByAdminIdPermission = "GetAdminDebtByAdminIdPermission";
+    public const string GetAdminSaleDebtPermission = "GetAdminSaleDebtPermission";
     public static IReadOnlySet<string> AllAdminPermissions => new HashSet<string>
     {
         CreateAdminPermission,
@@ -95,7 +110,20 @@ public static class Permissions
         UpdateHomeSalePermission,
         GetOnlyHomeSalePermission,
         GetAllHomeSalePermission,
-        GetHomeSaleByProductId
+        GetHomeSaleByProductId,
+        CreateAdminSalePermission,
+        UpdateAdminSalePermission,
+        DeleteAdminSalePermission,
+        GetOnlyAdminSalePermission,
+        GetAllAdminSalePermission,
+        GetAdminSaleByProductIdPermission,
+        CreateAdminDebtPermission,
+        UpdateAdminDebtPermission,
+        DeleteAdminDebtPermission,
+        GetOnlyAdminDebtPermission,
+        GetAllAdminDebtPermission,
+        GetAdminDebtByAdminIdPermission,
+        GetAdminSaleDebtPermission,
     };
     public static IReadOnlySet<string> AllCustomerPermissions => new HashSet<string>
     {
@@ -130,6 +158,19 @@ public static class Permissions
         UpdateHomeSalePermission,
         GetOnlyHomeSalePermission,
         GetAllHomeSalePermission,
-        GetHomeSaleByProductId
+        GetHomeSaleByProductId,
+        CreateAdminSalePermission,
+        UpdateAdminSalePermission,
+        DeleteAdminSalePermission,
+        GetOnlyAdminSalePermission,
+        GetAllAdminSalePermission,
+        GetAdminSaleByProductIdPermission,
+        CreateAdminDebtPermission,
+        UpdateAdminDebtPermission,
+        DeleteAdminDebtPermission,
+        GetOnlyAdminDebtPermission,
+        GetAllAdminDebtPermission,
+        GetAdminDebtByAdminIdPermission,
+        GetAdminSaleDebtPermission,
     };
 }

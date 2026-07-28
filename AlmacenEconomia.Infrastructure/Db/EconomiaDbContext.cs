@@ -1,4 +1,5 @@
 using AlmacenEconomia.Domain.Entity.Admin;
+using AlmacenEconomia.Domain.Entity.AdminDebt;
 using AlmacenEconomia.Domain.Entity.AdminSale;
 using AlmacenEconomia.Domain.Entity.AdminSaleDetails;
 using AlmacenEconomia.Domain.Entity.Code;
@@ -38,6 +39,7 @@ public class EconomiaDbContext : DbContext
     public DbSet<HomeSaleDetailsEntity> HomeSaleDetails {get ; set ;}
     public DbSet<AdminSaleEntity> AdminSales {get ; set ;}
     public DbSet<AdminSaleDetailsEntity> AdminSaleDetails {get ; set ;}
+    public DbSet<AdminDebtEntity> AdminDebts { get ; set ;}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -68,6 +70,10 @@ public class EconomiaDbContext : DbContext
         {
             option.HasOne(a => a.AdminSaleEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.AdminSaleId);
             option.HasOne(a => a.ProductEntity).WithMany(a => a.AdminSaleDetailsEntities).HasForeignKey(a => a.ProductId);
+        });
+        modelBuilder.Entity<AdminDebtEntity>(option =>
+        {
+            option.HasOne(a => a.Admin).WithMany(a => a.AdminDebts).HasForeignKey(a => a.AdminId);
         });
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

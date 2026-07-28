@@ -6,6 +6,7 @@ using AlmacenEconomia.Domain.Entity.Generic;
 using AlmacenEconomia.Domain.Events.Admin.AddPermissions;
 using AlmacenEconomia.Domain.Events.Admin.Create;
 using AlmacenEconomia.Domain.Events.Admin.Update;
+using AlmacenEconomia.Domain.Entity.AdminDebt;
 
 namespace AlmacenEconomia.Domain.Entity.Admin;
 public class AdminEntity : GenericEntity<AdminEntity>
@@ -13,6 +14,7 @@ public class AdminEntity : GenericEntity<AdminEntity>
     public string Email {get ; set ;} = string.Empty;
     public string Password {get ; set ;} = string.Empty;
     public ICollection<AdminSaleEntity>? AdminSaleEntity{get ; set ;}
+    public ICollection<AdminDebtEntity>? AdminDebts{ get ; set ;}
     public string PermissionJson {get ; set ;} = "[]";
     [NotMapped]
     public IReadOnlyList<string> Permission => JsonSerializer.Deserialize<List<string>>(PermissionJson) ?? new List<string>();
@@ -73,7 +75,24 @@ public class AdminEntity : GenericEntity<AdminEntity>
             Permissions.UpdateOfferPermission,
             Permissions.DeleteOfferPermission,
             Permissions.GetOnlyOfferPermission,
-            Permissions.GetAllOfferPermission
+            Permissions.GetAllOfferPermission,
+            Permissions.CreateHomeSalePermission,
+            Permissions.UpdateHomeSalePermission,
+            Permissions.GetOnlyHomeSalePermission,
+            Permissions.GetAllHomeSalePermission,
+            Permissions.CreateAdminSalePermission,
+            Permissions.UpdateAdminSalePermission,
+            Permissions.DeleteAdminSalePermission,
+            Permissions.GetOnlyAdminSalePermission,
+            Permissions.GetAllAdminSalePermission,
+            Permissions.GetAdminSaleByProductIdPermission,
+            Permissions.CreateAdminDebtPermission,
+            Permissions.UpdateAdminDebtPermission,
+            Permissions.DeleteAdminDebtPermission,
+            Permissions.GetOnlyAdminDebtPermission,
+            Permissions.GetAllAdminDebtPermission,
+            Permissions.GetAdminDebtByAdminIdPermission,
+            Permissions.GetAdminSaleDebtPermission,
         };
         admin.PermissionJson = JsonSerializer.Serialize(permissions);
         var createAdminDomainEvent = new CreateAdminEntityEvent(admin.Id , admin.Email);
