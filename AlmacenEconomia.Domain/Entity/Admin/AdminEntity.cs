@@ -75,7 +75,24 @@ public class AdminEntity : GenericEntity<AdminEntity>
             Permissions.UpdateOfferPermission,
             Permissions.DeleteOfferPermission,
             Permissions.GetOnlyOfferPermission,
-            Permissions.GetAllOfferPermission
+            Permissions.GetAllOfferPermission,
+            Permissions.CreateHomeSalePermission,
+            Permissions.UpdateHomeSalePermission,
+            Permissions.GetOnlyHomeSalePermission,
+            Permissions.GetAllHomeSalePermission,
+            Permissions.CreateAdminSalePermission,
+            Permissions.UpdateAdminSalePermission,
+            Permissions.DeleteAdminSalePermission,
+            Permissions.GetOnlyAdminSalePermission,
+            Permissions.GetAllAdminSalePermission,
+            Permissions.GetAdminSaleByProductIdPermission,
+            Permissions.CreateAdminDebtPermission,
+            Permissions.UpdateAdminDebtPermission,
+            Permissions.DeleteAdminDebtPermission,
+            Permissions.GetOnlyAdminDebtPermission,
+            Permissions.GetAllAdminDebtPermission,
+            Permissions.GetAdminDebtByAdminIdPermission,
+            Permissions.GetAdminSaleDebtPermission,
         };
         admin.PermissionJson = JsonSerializer.Serialize(permissions);
         var createAdminDomainEvent = new CreateAdminEntityEvent(admin.Id , admin.Email);

@@ -9,16 +9,16 @@ using Microsoft.Extensions.Logging;
 
 namespace AlmacenEconomia.Application.Command.AdminDebt.UpdateAllPaids;
 
-public class UpdateAllPaidsCommandHandler : UpdateGenericEntityCommandHandler<AdminDebtEntity, UpdateAllPaidsCommand>
+public class UpdateAllAdminDebtPaidsCommandHandler : IRequestHandler<UpdateAllAdminDebtPaidsCommand , Result<Unit>>
 {
     private readonly IAdminDebtRepository adminDebtRepository;
     private readonly ILogger<AdminDebtEntity> logger;
-    public UpdateAllPaidsCommandHandler(IAdminDebtRepository generic, IMapper mapper , ILogger<AdminDebtEntity> logger) : base(generic, mapper)
+    public UpdateAllAdminDebtPaidsCommandHandler(IAdminDebtRepository generic , ILogger<AdminDebtEntity> logger)
     {
         adminDebtRepository = generic;
         this.logger = logger;
     }
-    public override async Task<Result<Unit>> Handle(UpdateAllPaidsCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(UpdateAllAdminDebtPaidsCommand request, CancellationToken cancellationToken)
     {
         var debts = await adminDebtRepository.GetAllPendigs(cancellationToken);
         if(debts.Any(a => a.AdminId != request.AdminId))

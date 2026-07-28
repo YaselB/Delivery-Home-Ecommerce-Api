@@ -46,6 +46,6 @@ public class AdminDebtRepository : GenericRepository<AdminDebtEntity>, IAdminDeb
 
     public async Task<IReadOnlyList<AdminDebtEntity>> GetByAdminId(string id, CancellationToken cancellationToken)
     {
-        return await context.AdminDebts.Where(a => a.AdminId == id).ToListAsync();
+        return await context.AdminDebts.Include(a => a.Admin).Where(a => a.AdminId == id).ToListAsync();
     }
 }

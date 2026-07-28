@@ -1,25 +1,22 @@
-using AlmacenEconomia.Application.Command.Generic.Update;
 using AlmacenEconomia.Application.Common.Error;
 using AlmacenEconomia.Application.Common.Result_Value;
 using AlmacenEconomia.Application.Interfaces.Repository.AdminDebt;
-using AlmacenEconomia.Application.Repository.Generic;
 using AlmacenEconomia.Domain.Entity.AdminDebt;
-using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace AlmacenEconomia.Application.Command.AdminDebt.UpdatePaid;
 
-public class UpdatePaidCommandHandler : UpdateGenericEntityCommandHandler<AdminDebtEntity, UpdatePaidCommand>
+public class UpdatePaidCommandHandler : IRequestHandler<UpdateAdminDebtPaidCommand , Result<Unit>>
 {
     private readonly IAdminDebtRepository adminDebtRepository;
     private readonly ILogger<AdminDebtEntity> logger;
-    public UpdatePaidCommandHandler(IAdminDebtRepository generic, IMapper mapper , ILogger<AdminDebtEntity> logger) : base(generic, mapper)
+    public UpdatePaidCommandHandler(IAdminDebtRepository generic , ILogger<AdminDebtEntity> logger)
     {
         adminDebtRepository = generic;
         this.logger = logger;
     }
-    public override async Task<Result<Unit>> Handle(UpdatePaidCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(UpdateAdminDebtPaidCommand request, CancellationToken cancellationToken)
     {
         var adminDebt = await adminDebtRepository.GetDebtByIds(request.DebtIds , cancellationToken);
         if(adminDebt.Count != request.DebtIds.Count)
